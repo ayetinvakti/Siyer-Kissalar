@@ -35,10 +35,10 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title data-i18n="page_title">Siyer-i Nebi | Ayetin Vakti</title>
+    <title data-i18n="page_title">Siyer-i Nebi Ansiklopedisi | Ayetin Vakti</title>
     
-    <meta property="og:title" content="Siyer-i Nebi | Ayetin Vakti">
-    <meta property="og:description" content="Peygamber Efendimiz'in (SAV) hayatı, savaşları, örnek ahlakı ve asr-ı saadet kıssaları.">
+    <meta property="og:title" content="Siyer-i Nebi Ansiklopedisi | Ayetin Vakti">
+    <meta property="og:description" content="Peygamber Efendimiz'in (SAV) hayatı, tüm gazveleri, örnek ahlakı ve asr-ı saadet kıssaları.">
     <meta property="og:type" content="website">
 
     <style>
@@ -353,22 +353,22 @@
     </div>
 
     <div class="header">
-        <h1 data-i18n="main_title">Siyer-i Nebi</h1>
-        <p data-i18n="brand_subtitle">Peygamber Efendimiz’in (SAV) Hayatı, Savaşları ve Örnek Ahlakı</p>
+        <h1 data-i18n="main_title">Siyer-i Nebi Ansiklopedisi</h1>
+        <p data-i18n="brand_subtitle">Peygamber Efendimiz’in (SAV) Hayatının Tüm Evreleri ve Gazveler</p>
     </div>
 
     <!-- Arama Çubuğu -->
     <div class="search-box">
-        <input type="text" id="searchInput" class="search-input" placeholder="Arşivde ara (Örn: Hira, Uhud, Veda)..." oninput="handleSearch()">
+        <input type="text" id="searchInput" class="search-input" placeholder="Ansiklopedide ara (Örn: Bedir, Uhud, Hz. Hatice)..." oninput="handleSearch()">
     </div>
 
     <!-- Dönem Sekmeleri -->
     <div class="category-tabs" id="categoryTabs">
         <button class="tab-btn active" onclick="filterCategory('all', this)" data-i18n="tab_all">Tümü</button>
-        <button class="tab-btn" onclick="filterCategory('dogus', this)" data-i18n="tab_dogus">Doğuşu ve Çocukluğu</button>
-        <button class="tab-btn" onclick="filterCategory('risalet', this)" data-i18n="tab_risalet">Mekke Dönemi</button>
+        <button class="tab-btn" onclick="filterCategory('dogus', this)" data-i18n="tab_dogus">Doğuş ve Çocukluk</button>
+        <button class="tab-btn" onclick="filterCategory('mekke', this)" data-i18n="tab_mekke">Mekke Dönemi</button>
         <button class="tab-btn" onclick="filterCategory('medine', this)" data-i18n="tab_medine">Medine ve Savaşlar</button>
-        <button class="tab-btn" onclick="filterCategory('ahlak', this)" data-i18n="tab_ahlak">Ahlakı ve Şemaili</button>
+        <button class="tab-btn" onclick="filterCategory('ahlak', this)" data-i18n="tab_ahlak">Ahlak ve Şemail</button>
         <button class="tab-btn" onclick="filterCategory('veda', this)" data-i18n="tab_veda">Veda ve Vefat</button>
     </div>
 
@@ -394,23 +394,23 @@
 <script>
     const translations = {
         tr: {
-            page_title: "Siyer-i Nebi | Ayetin Vakti",
-            main_title: "Siyer-i Nebi",
-            brand_subtitle: "Peygamber Efendimiz’in (SAV) Hayatı, Savaşları ve Örnek Ahlakı",
+            page_title: "Siyer-i Nebi Ansiklopedisi | Ayetin Vakti",
+            main_title: "Siyer-i Nebi Ansiklopedisi",
+            brand_subtitle: "Peygamber Efendimiz’in (SAV) Hayatının Tüm Evreleri ve Gazveler",
             tab_all: "Tümü",
-            tab_dogus: "Doğuşu",
-            tab_risalet: "Mekke",
+            tab_dogus: "Doğuş",
+            tab_mekke: "Mekke",
             tab_medine: "Medine",
-            tab_ahlak: "Ahlakı",
+            tab_ahlak: "Ahlak",
             tab_veda: "Veda"
         },
         en: {
             page_title: "Seerah Encyclopedia | Ayetin Vakti",
             main_title: "Prophet's Life Encyclopedia",
-            brand_subtitle: "Life, Battles and Character of Prophet Muhammad (PBUH)",
+            brand_subtitle: "Complete Life Stages and Battles of Prophet Muhammad (PBUH)",
             tab_all: "All",
             tab_dogus: "Early Life",
-            tab_risalet: "Meccan",
+            tab_mekke: "Meccan",
             tab_medine: "Medinan",
             tab_ahlak: "Character",
             tab_veda: "Farewell"
@@ -418,10 +418,10 @@
         ar: {
             page_title: "موسوعة السيرة النبوية | آية الوقت",
             main_title: "موسوعة السيرة النبوية",
-            brand_subtitle: "حياة النبي محمد صلى الله عليه وسلم وغزواته وأخلاقه",
+            brand_subtitle: "مراحل حياة النبي محمد صلى الله عليه وسلم وغزواته الشريفة",
             tab_all: "الكل",
             tab_dogus: "النشأة",
-            tab_risalet: "العهد المكي",
+            tab_mekke: "العهد المكي",
             tab_medine: "العهد المدني",
             tab_ahlak: "الأخلاق",
             tab_veda: "الوفاة"
@@ -431,160 +431,348 @@
     const activeLang = localStorage.getItem('user_lang') || 'tr';
     const t = translations[activeLang] || translations['tr'];
 
-    // Genişletilmiş Dev Arşiv Veritabanı
+    // Gerçek Kaynaklara Dayalı Kapsamlı Dev Siyer Veritabanı
     const siyerData = [
         {
             id: 1,
             category: 'dogus',
-            titleTr: "Dünyaya Teşrifleri (Amûl-Fîl ve Doğumu)",
-            titleEn: "Birth of the Prophet",
-            titleAr: "مولد النبي صلى الله عليه وسلم العام فيل",
-            badgeTr: "Doğuş", badgeEn: "Birth", badgeAr: "مولد",
-            descTr: "Peygamber Efendimiz Hz. Muhammed (SAV), Rebiülevvel ayının 12. gecesi Mekke'de dünyaya teşrif ettiler.",
-            descEn: "Prophet Muhammad (PBUH) was born in Mecca on the 12th night of Rabi' al-Awwal.",
-            descAr: "وُلد النبي محمد صلى الله عليه وسلم في مكة المكرمة في فجر يوم الاثنين...",
-            contentTr: "Peygamber Efendimiz Hz. Muhammed (SAV), miladi 571 yılı, Rebiülevvel ayının 12. Pazartesi gecesi sabaha karşı Mekke'de dünyaya geldi. Babası Abdullah, o doğmadan önce 25 yaşında vefat etmişti. Annesi Âmine Hatun, dedesi ise Kureyş'in lideri Abdülmuttalip'tir.\n\nDoğumu sırasında âlemde birçok olağanüstü olay (irhasat) gerçekleşti; İran sarayının sütunları sarsıldı, Mecusilerin bin yıldır sönmeyen kutsal ateşi söndü ve Save Gölü kurudu.",
-            contentEn: "Detailed English text about the birth...",
-            contentAr: "النص التفصيلي باللغة العربية عن مولد النبي..."
+            titleTr: "Nesebi, Ailesi ve Fill Vak'ası (Amûl-Fîl)",
+            titleEn: "Lineage, Family and Year of the Elephant",
+            titleAr: "نسبه الشريف وعام الفيل",
+            badgeTr: "Doğuş", badgeEn: "Lineage", badgeAr: "النسب",
+            descTr: "Peygamber Efendimiz'in pak nesebi, Hz. İbrahim'e uzanan soyağacı ve Ebrehe'nin Kabe'yi yıkma girişimi.",
+            descEn: "The noble lineage of the Prophet and Abraha's failed expedition against the Kaaba.",
+            descAr: "نسب النبي الكريم إلى إبراهيم عليه السلام وقصة أصحاب الفيل.",
+            contentTr: "Peygamber Efendimiz Hz. Muhammed Mustafa (SAV), Hz. İbrahim'in oğlu Hz. İsmail'e uzanan seçkin bir nesep zincirine sahiptir. Babası Abdullah, annesi Âmine binti Vehb'dir. Doğumundan kısa süre önce (veya hemen sonra) Ebrehe, Kâbe'yi yıkmak üzere fil ordusuyla Mekke'ye gelmiş, ancak Ebâbil kuşları ile helak edilmiştir. Bu olay 'Fil Vak'ası' olarak tarihe geçmiştir.",
+            contentEn: "Detailed English text about lineage and Year of the Elephant...",
+            contentAr: "النص التفصيلي باللغة العربية عن النسب وعام الفيل..."
         },
         {
             id: 2,
             category: 'dogus',
-            titleTr: "Sütanneye Verilmesi ve Halime Hatun",
-            titleEn: "Nursing and Halimah",
-            titleAr: "رضاعة النبي صلى الله عليه وسلم وحليمة السعدية",
-            badgeTr: "Çocukluk", badgeEn: "Childhood", badgeAr: "طفولة",
-            descTr: "Âdet olduğu üzere Mekke'nin çöl havasında büyümesi ve Arapçayı en fasih şekilde öğrenmesi için Halime Hatun'a verildi.",
-            descEn: "Sent to Halimah from the Banu Sa'd tribe to grow up in the healthy desert air.",
-            descAr: "أُرسل إلى بني سعد ليرضع في بادية بني سعد ولينشأ على الفصاحة...",
-            contentTr: "Mekke'nin sıcak ve havası ağır ortamından korunması amacıyla bebekler kırsaldaki sütannelere verilirdi. Hz. Halime, bereketsiz geçen yılına rağmen Peygamberimizi (SAV) yanına aldıktan sonra evinde bolluk ve bereket gördü. Efendimiz 4 yaşına kadar Sa'd kabilesi arasında sütannesi Halime'nin yanında büyüdü.",
-            contentEn: "Detailed English text about nursing...",
-            contentAr: "النص التفصيلي باللغة العربية عن الرضاعة..."
+            titleTr: "Dünyaya Teşrifleri ve Yetimliği",
+            titleEn: "Birth and Orphanhood",
+            titleAr: "مولده الشريف ونشأته يتيماً",
+            badgeTr: "Doğuş", badgeEn: "Birth", badgeAr: "المولد",
+            descTr: "Rebiülevvel ayının 12. Pazartesi gecesi Mekke'de doğumu ve doğuştan gelen hikmetler.",
+            descEn: "Birth in Mecca on the 12th of Rabi' al-Awwal and growing up as an orphan.",
+            descAr: "ولادته في فجر الاثنين من ربیع الأول ووفاة أبيه عبدالله.",
+            contentTr: "Efendimiz (SAV), miladi 571 yılı Rebiülevvel ayının 12. Pazartesi sabaha karşı Mekke'de dünyayı teşrif etti. Babası Abdullah, ticaret için gittiği Medine'den dönerken hastalanıp vefat etmişti. Bu sebeple dünyaya yetim olarak gözlerini açtı. Dedesinin himayesinde kutsal bir atmosferde büyümeye başladı.",
+            contentEn: "Detailed English text about his birth...",
+            contentAr: "النص التفصيلي باللغة العربية عن مولده..."
         },
         {
             id: 3,
-            category: 'risalet',
-            titleTr: "İlk Vahiy ve Hira Mağarası",
-            titleEn: "First Revelation: Cave of Hira",
-            titleAr: "الوحي الأول ونزول القرآن في غار حراء",
-            badgeTr: "Risalet", badgeEn: "Revelation", badgeAr: "الوحي",
-            descTr: "40 yaşındayken Hira Mağarası'nda Cebrail (AS) vasıtasıyla ilk vahiy olan Alak Suresi'nin ilk ayetleri nazil oldu.",
-            descEn: "At the age of 40, the first revelation 'Read!' was sent down in the Cave of Hira.",
-            descAr: "في سن الأربعين، نزلت أول آيات سورة العلق في غار حراء...",
-            contentTr: "Hz. Muhammed (SAV) 40 yaşına geldiğinde, insanlardan uzaklaşıp tefekkür etmek için Mekke yakınlarındaki Nur Dağı'nda bulunan Hira Mağarası'na çekilmeyi adet edinmişti.\n\nMiladi 610 yılı Ramazan ayında Cebrail (AS) gelerek 'Oku!' buyurdu. Efendimiz 'Ben okuma bilmem' deyince melek onu kucakladı ve bu olay üç kez tekrarlandı. Ardından 'Yaratan Rabbinin adıyla oku...' ayetleri nazil oldu.",
-            contentEn: "Detailed English text about first revelation...",
-            contentAr: "النص التفصيلي باللغة العربية عن نزول الوحي..."
+            category: 'dogus',
+            titleTr: "Sütanne Dönemi ve Göğsünün Yarılması (Şakk-ı Sadr)",
+            titleEn: "Nursing Period and Chest Splitting",
+            titleAr: "رضاعته في بني سعد وحادثة شق الصدر",
+            badgeTr: "Çocukluk", badgeEn: "Childhood", badgeAr: "الرضاعة",
+            descTr: "Halime Hatun'un yanında geçen bereketli yıllar ve melekler tarafından kalbinin yıkanması mucizesi.",
+            descEn: "Blessed years with Halimah and the miraculous purification of his heart.",
+            descAr: "سنوات الرضاعة في بادية بني سعد ومعجزة شق الصدر.",
+            contentTr: "Mekke geleneklerine göre çöl havası alması ve fasih Arapça öğrenmesi için Sa'd kabilesinden Halime Hatun'a verildi. O'nun gelişiyle Halime'nin evi ve hayvanları bolluğa kavuştu. Yaklaşık 4 veya 5 yaşlarındayken sahra ortasında melekler tarafından göğsü yarılarak kalbi zemzemle yıkanmış ve manevi kirlerden arındırılmıştır (Şakk-ı Sadr).",
+            contentEn: "Detailed English text about nursing and chest splitting...",
+            contentAr: "النص التفصيلي باللغة العربية عن حادثة شق الصدر..."
         },
         {
             id: 4,
-            category: 'risalet',
-            titleTr: "Gizli Davet ve Erkam'ın Evi",
-            titleEn: "Secret Invitation and House of Arqam",
-            titleAr: "الدعوة السرية ودار الأرقم",
-            badgeTr: "Mekke", badgeEn: "Mecca", badgeAr: "مكة",
-            descTr: "İslam'ın ilk yıllarında tebliğ gizli yürütüldü ve Erkam bin Ebi'l-Erkam'ın evi karargâh olarak kullanıldı.",
-            descEn: "In the early years, the invitation was secret and Arqam's house served as a base.",
-            descAr: "في السنوات الأولى كانت الدعوة سرية واتخذت دار الأرقم مقراً...",
-            contentTr: "İlk 3 yıl boyunca İslam daveti gizli tutuldu. İlk Müslümanlar Hz. Hatice, Hz. Ebû Bekir, Hz. Ali ve Hz. Zeyd bin Hârise oldu. Müslüman sayısının artmasıyla birlikte Safa tepesi eteklerindeki Erkam'ın evi (Darü'l-Erkam) Müslümanların sığınağı ve eğitim merkezi haline geldi.",
-            contentEn: "Detailed English text about secret invitation...",
-            contentAr: "النص التفصيلي باللغة العربية عن دار الأرقم..."
+            category: 'dogus',
+            titleTr: "Annesini ve Dedesini Kaybetmesi, Ebu Talib'in Himayesi",
+            titleEn: "Loss of Mother and Grandfather, Protection of Abu Talib",
+            titleAr: "وفاة أمه وجده وكفالة عمّه أبي طالب",
+            badgeTr: "Çocukluk", badgeEn: "Childhood", badgeAr: "الطفولة",
+            descTr: "6 yaşında annesi Âmine'yi, 8 yaşında dedesi Abdülmuttalip'i kaybetmesi ve amcası Ebu Talib'in yanında büyümesi.",
+            descEn: "Losing his mother at 6, grandfather at 8, and coming under the care of his uncle Abu Talib.",
+            descAr: "وفاة أمه آمنة بالأبواء وجده عبدالمطلب وكفالة أبي طالب له.",
+            contentTr: "6 yaşına geldiğinde annesi Âmine Hatun ile birlikte Medine'deki akrabalarını ve babasının kabrini ziyarete gitti. Dönüşte Ebva köyünde annesi vefat etti. Mekke'ye döndükten 2 yıl sonra ise dedesi Abdülmuttalip vefat etti ve vasiyeti üzerine amcası Ebu Talib'in himayesine verildi.",
+            contentEn: "Detailed English text about his early losses...",
+            contentAr: "النص التفصيلي باللغة العربية عن كفالة أبي طالب..."
         },
         {
             id: 5,
-            category: 'medine',
-            titleTr: "Hicret (Mekke'den Medine'ye Göç)",
-            titleEn: "The Hijra (Migration to Medina)",
-            titleAr: "الهجرة النبوية الشريفة إلى المدينة المنورة",
-            badgeTr: "Medine", badgeEn: "Medina", badgeAr: "هجرة",
-            descTr: "Mekke'deki baskı ve boykotların ardından Allah'ın izniyle Medine'ye hicret gerçekleştirildi.",
-            descEn: "Following severe persecution in Mecca, Muslims migrated to Medina.",
-            descAr: "بعد اشتداد الأذى في مكة، هاجر المسلمون إلى المدينة المنورة...",
-            contentTr: "Mekkelilerin baskıları katlanılmaz hal alınca, Allah Teâlâ'nın izniyle Müslümanlar gruplar halinde Medine'ye göç etmeye başladı. Hz. Muhammed (SAV) ve Hz. Ebû Bekir, müşriklerin suikast planını boşa çıkararak Sevr Mağarası'ndaki mucizevi korumanın ardından Medine'ye ulaştılar. Bu olay, Hicri takvimin başlangıcı kabul edildi.",
-            contentEn: "Detailed English text about Hijra...",
-            contentAr: "النص التفصيلي باللغة العربية عن الهجرة..."
+            category: 'dogus',
+            titleTr: "Gençliği, Hilfü'l-Fudul ve el-Emîn Unvanı",
+            titleEn: "Youth, League of Virtuous and 'Al-Amin'",
+            titleAr: "شباب النبي وحلف الفضول ولقب الأمين",
+            badgeTr: "Gençlik", badgeEn: "Youth", badgeAr: "الشباب",
+            descTr: "Mekke toplumunda dürüstlüğüyle 'el-Emîn' unvanını alması ve mazlumları korumak için kurulan Hilfü'l-Fudul.",
+            descEn: "Earning the title 'Al-Amin' (The Trustworthy) and participating in the League of the Virtuous.",
+            descAr: "صفاته في الشباب وحلف الفضول لنصرة المظلومين وتلقيبه بالأمين.",
+            contentTr: "Gençlik yıllarında putperestliğin ve Mekke'nin çirkin âdetlerinden tamamen uzak durdu. Ticaretle uğraştı ve asil dürüstlüğü sayesinde halk arasında 'el-Emîn' (Güvenilir) olarak anıldı. Mekke'de zulme uğrayanların hakkını aramak için kurulan adalet teşkilatı 'Hilfü'l-Fudul' (Erdemliler Antlaşması) çalışmalarına aktif katıldı.",
+            contentEn: "Detailed English text about his youth...",
+            contentAr: "النص التفصيلي باللغة العربية عن شبابه ولقب الأمين..."
         },
         {
             id: 6,
-            category: 'medine',
-            titleTr: "Bedir Savaşı (Hicretin 2. Yılı)",
-            titleEn: "Battle of Badr",
-            titleAr: "غزوة بدر الكبرى",
-            badgeTr: "Savaş", badgeEn: "Battle", badgeAr: "غزوة",
-            descTr: "İslam'ın ilk büyük askerî mücadelesi olan Bedir Savaşı, Müslümanların kesin zaferiyle sonuçlandı.",
-            descEn: "The first major military engagement of Islam, resulting in a decisive victory for Muslims.",
-            descAr: "أول معركة كبرى في الإسلام وانتهت بانتصار المسلمين...",
-            contentTr: "Hicretin 2. yılında (624) Mekkeli müşriklerin ordusuyla Medineli Müslümanlar Bedir kuyuları yakınlarında karşılaştı. Sayıca ve teçhizatca çok üstün olan müşriklere karşı Müslümanlar büyük bir kahramanlık gösterdi. Meleklerin desteğiyle kazanılan Bedir Zaferi, İslam devletinin siyasi ve askeri varlığını tescilledi.",
-            contentEn: "Detailed English text about Battle of Badr...",
-            contentAr: "النص التفصيلي باللغة العربية عن غزوة بدر..."
+            category: 'mekke',
+            titleTr: "Hz. Hatice ile Evliliği ve Ticaret Hayatı",
+            titleEn: "Marriage to Khadijah and Commerce",
+            titleAr: "زواجه من خديجة الكبرى رضي الله عنها",
+            badgeTr: "Evlilik", badgeEn: "Marriage", badgeAr: "الزواج",
+            descTr: "Hz. Hatice'nin ticaret kervanını yönetmesi, dürüstlüğünden etkilenerek evlilik teklif etmesi ve kutlu yuva.",
+            descEn: "Managing Khadijah's trade caravan and their blessed marriage.",
+            descAr: "إدارته لتجارة خديجة وزواجه المبارك منها وإنجاب الأولاد.",
+            contentTr: "Şam ticaret kervanını büyük bir başarı ve dürüstlükle idare etmesi üzerine Hz. Hatice validemiz O'na evlilik teklifinde bulundu. Bu evlilikten Kasım, Zeynep, Rukiyye, Ümmü Gülsüm, Fatıma ve Abdullah (Tayyib/Tahir) dünyaya geldi. Hz. Hatice, Peygamberimizin en büyük destekçisi oldu.",
+            contentEn: "Detailed English text about marriage to Khadijah...",
+            contentAr: "النص التفصيلي باللغة العربية عن زواجه بخديجة..."
         },
         {
             id: 7,
+            category: 'mekke',
+            titleTr: "İlk Vahiy ve Hira Mağarası (610)",
+            titleEn: "First Revelation in Cave of Hira",
+            titleAr: "نزول الوحي الأول في غار حراء",
+            badgeTr: "Risalet", badgeEn: "Revelation", badgeAr: "الوحي",
+            descTr: "40 yaşında Nur Dağı'nda Cebrail (AS) ile karşılaşması ve Alak Suresi'nin ilk ayetlerinin nazil olması.",
+            descEn: "Encountering Gabriel at age 40 and the revelation of the first verses of Surah Al-Alaq.",
+            descAr: "نزول سورة العلق وبداية النبوة في شهر رمضان المبارك.",
+            contentTr: "40 yaşına erdiğinde ibadet ve tefekkür için Nur Dağı Hira Mağarası'na çekilmeyi tercih etti. Ramazan ayında Cebrail (AS) gelerek 'Oku!' buyurdu. Efendimiz 'Ben okuma bilmem' deyince melek O'nu kucaklayıp bıraktı ve bu üç kez tekrarlandı. Ardından Alak Suresi'nin ilk 5 ayeti nazil olarak risalet görevi başladı.",
+            contentEn: "Detailed English text about the first revelation...",
+            contentAr: "النص التفصيلي باللغة العربية عن أول الوحي..."
+        },
+        {
+            id: 8,
+            category: 'mekke',
+            titleTr: "Gizli Davet ve Erkam'ın Evi (Darü'l-Erkam)",
+            titleEn: "Secret Preaching and House of Arqam",
+            titleAr: "الدعوة السرية ودار الأرقم بن أبي الأرقم",
+            badgeTr: "Mekke", badgeEn: "Mecca", badgeAr: "مكة",
+            descTr: "İslam'ın ilk 3 yılında tebliğin gizli yürütülmesi, ilk Müslümanlar ve Erkam'ın evinin karargâh yapılması.",
+            descEn: "Secret preaching for three years and using Arqam's house as the center.",
+            descAr: "بدء الدعوة سراً واجتماع المسلمين الأوائل في دار الأرقم.",
+            contentTr: "İlk aşamada yakın çevresinden başlayarak İslam'ı gizlice tebliğ etti. İlk iman edenler Hz. Hatice, Hz. Ali, Hz. Ebû Bekir ve azatlısı Zeyd bin Hârise oldu. Sayı arttıkça Safa tepesi eteklerindeki Erkam'ın evi Müslümanların sığınağı, ibadet ve eğitim merkezi haline geldi.",
+            contentEn: "Detailed English text about secret preaching...",
+            contentAr: "النص التفصيلي باللغة العربية عن الدعوة السرية..."
+        },
+        {
+            id: 9,
+            category: 'mekke',
+            titleTr: "Açık Davet, Safa Tepesi ve Müşriklerin Tepkisi",
+            titleEn: "Public Preaching and Opposition",
+            titleAr: "الججهر بالدعوة وموقف قريش المعادي",
+            badgeTr: "Mekke", badgeEn: "Mecca", badgeAr: "مكة",
+            descTr: "'Artık sana emrolunanı açıkça bildir' emriyle Safa tepesinden halkı İslam'a çağırması ve kureyş'in zulmü.",
+            descEn: "Public call to Islam from Mount Safa and the onset of Quraysh persecution.",
+            descAr: "الجهر بالدعوة إثر نزول قوله تعالى (فاصدع بما تؤمر) ومعارضة قريش.",
+            contentTr: "'Şimdi sana emrolunanı açıkça söyle ve müşriklere aldırış etme' (Hicr, 94) ayeti inince Peygamberimiz Safa tepesine çıkarak Kureyş kabilelerini İslam'a çağırdı. Ebû Leheb ve önde gelenler karşı çıktı. Bunun üzerine Müslümanlara yönelik hakaret, boykot ve işkence dönemi başladı.",
+            contentEn: "Detailed English text about public preaching...",
+            contentAr: "النص التفصيلي باللغة العربية عن الجهر بالدعوة..."
+        },
+        {
+            id: 10,
+            category: 'mekke',
+            titleTr: "Habeşistan Hicretleri ve Hüzün Yılı",
+            titleEn: "Migrations to Abyssinia and Year of Sorrow",
+            titleAr: "الهجرة إلى الحبشة وعام الحزن",
+            badgeTr: "Mekke", badgeEn: "Mecca", badgeAr: "حزن",
+            descTr: "Müşriklerin zulmünden kaçan Müslümanların Habeşistan'a göçü ve Ebu Talib ile Hz. Hatice'nin vefatı.",
+            descEn: "Migration of persecuted Muslims to Abyssinia and the passing of Abu Talib and Khadijah.",
+            descAr: "هجرة الصحابة إلى الحبشة ووفاة أبي طالب وزوجته خديجة في عام واحد.",
+            contentTr: "Baskıların artması üzerine Hz. Osman liderliğinde bir grup Müslüman iki defa Habeşistan'a hicret etti; Necaşi onlara adil davranıp sığınma hakkı tanıdı. Hicretin 10. yılında ise hem amcası Ebu Talib'i hem de en büyük dayanağı Hz. Hatice'yi peş peşe kaybeden Efendimiz bu yıla 'Hüzün Yılı' (Amü'l-Hüzn) dedi.",
+            contentEn: "Detailed English text about Abyssinia and Year of Sorrow...",
+            contentAr: "النص التفصيلي باللغة العربية عن الهجرة إلى الحبشة وعام الحزن..."
+        },
+        {
+            id: 11,
+            category: 'mekke',
+            titleTr: "Taif Yolculuğu ve İsrâ ve Miraç Mucizesi",
+            titleEn: "Journey to Taif and Isra and Miraj",
+            titleAr: "رحلة الطائف معجزة الإسراء والمعراج",
+            badgeTr: "Mucize", badgeEn: "Miracle", badgeAr: "المعراج",
+            descTr: "Taif'te taşlanmasına rağmen sabretmesi ve Mescid-i Haram'dan Mescid-i Aksa'ya, oradan semaya yükselişi.",
+            descEn: "Enduring hardship in Taif and the miraculous nocturnal journey and ascension.",
+            descAr: "رحلته إلى الطائف ثم معجزة الإسراء والمعراج وفرض الصلوات الخمس.",
+            contentTr: "Mekke'de umut kalmayınca İslam'ı yaymak için Taif'e gitti, ancak taşlanarak şehirden çıkarıldı. Meleklerin dağı yok etme teklifini merhametle reddetti. Bu hüzünlü dönemde ilahi bir ikram olarak İsrâ ve Miraç gerçekleşti; Mescid-i Haram'dan Mescid-i Aksa'ya, oradan semaya yükselerek beş vakit namaz farz kılındı.",
+            contentEn: "Detailed English text about Taif and Isra-Miraj...",
+            contentAr: "النص التفصيلي باللغة العربية عن الإسراء والمعراج..."
+        },
+        {
+            id: 12,
+            category: 'mekke',
+            titleTr: "Akabe Biatları ve Hicir Kararı",
+            titleEn: "Pledges of Aqabah and Migration Decision",
+            titleAr: "بيعتا العقبة الأولى والثانية",
+            badgeTr: "Biat", badgeEn: "Pledge", badgeAr: "العقبة",
+            descTr: "Medineli Müslümanların Akabe'de Peygamberimize biat etmesi ve Medine'ye hicret yolunun açılması.",
+            descEn: "The Pledges of Aqabah with people of Medina, paving the way for Hijra.",
+            descAr: "بيعة العقبة الأولى والثانية وتمهيد الطريق للهجرة إلى المدينة.",
+            contentTr: "Hac mevsiminde Mekke'ye gelen Medineli Hazreç ve Evs kabilelerinden heyetler, Akabe'de Peygamberimizle gizlice görüşerek İslamiyet'i kabul ettiler ve O'nu koruyacaklarına dair söz verdiler (1. ve 2. Akabe Biatları). Bu biatlarla Medine, İslam için güvenli bir üs haline geldi.",
+            contentEn: "Detailed English text about Pledges of Aqabah...",
+            contentAr: "النص التفصيلي باللغة العربية عن بيعتي العقبة..."
+        },
+        {
+            id: 13,
             category: 'medine',
-            titleTr: "Uhud Savaşı ve İbretleri",
+            titleTr: "Hicret ve Sevr Mağarası Mucizesi (622)",
+            titleEn: "The Hijra and Cave of Thawr",
+            titleAr: "الهجرة النبوية الشريفة وغار ثور",
+            badgeTr: "Medine", badgeEn: "Hijra", badgeAr: "الهجرة",
+            descTr: "Müşriklerin suikast planını bozarak Hz. Ebû Bekir ile Sevr Mağarası'na sığınmaları ve Medine'ye varış.",
+            descEn: "Evading Quraysh assassins, sheltering in Cave of Thawr, and arriving in Medina.",
+            descAr: "خروج النبي مع أبي طالب/أبي بكر إلى غار ثور والوصول إلى المدينة المنورة.",
+            contentTr: "Müşrikler suikast planı yaparken Hz. Ali'yi yatağına bırakıp Hz. Ebû Bekir ile Sevr Mağarası'na gizlendi. Müşrikler mağara kapısına kadar geldiğinde Allah'ın korumasıyla (örümcek ağı ve güvercin yuvası) kurtuldular. 12 Eylül 622'de Kuba'ya, ardından Medine'ye ulaştılar. Bu olay hicri takvimin başlangıcı oldu.",
+            contentEn: "Detailed English text about Hijra and Cave of Thawr...",
+            contentAr: "النص التفصيلي باللغة العربية عن الهجرة وغار ثور..."
+        },
+        {
+            id: 14,
+            category: 'medine',
+            titleTr: "Medine'de Toplumun İnşası: Mescid, Mıahat ve Sözleşme",
+            titleEn: "Building Medina Society: Mosque, Brotherhood, Constitution",
+            titleAr: "بناء المجتمع المدني: المسجد، المؤاخاة، وثيقة المدينة",
+            badgeTr: "Medine", badgeEn: "Medina", badgeAr: "الدولة",
+            descTr: "Mescid-i Nebevi'nin inşası, Muhacir ile Ensar'ın kardeş ilan edilmesi ve Medine Sözleşmesi.",
+            descEn: "Building Masjid al-Nabawi, establishing brotherhood between Muhajirun and Ansar, and Medina Charter.",
+            descAr: "بناء المسجد النبوي، المؤاخاة بين المهاجرين والأنصار، وصحيفة المدينة.",
+            contentTr: "Medine'ye varır varmaz ilk iş olarak Mescid-i Nebevi inşa edildi. Mekkeli göçmenler (Muhacir) ile Medinli yardımcılar (Ensar) kardeş ilan edildi (Muahat). Ayrıca Yahudiler ve diğer kabilelerle birlikte yaşama esaslarını belirleyen 'Medine Sözleşmesi' (Anayasası) imzalandı.",
+            contentEn: "Detailed English text about Medina society...",
+            contentAr: "النص التفصيلي باللغة العربية عن بناء المجتمع المدني..."
+        },
+        {
+            id: 15,
+            category: 'medine',
+            titleTr: "Bedir Savaşı (Hicretin 2. Yılı / 624)",
+            titleEn: "Battle of Badr",
+            titleAr: "غزوة بدر الكبرى",
+            badgeTr: "Savaş", badgeEn: "Battle", badgeAr: "بدر",
+            descTr: "313 Müslümanın sayıca çok üstün müşrik ordusuna karşı kazandığı ilk ve en büyük zafer.",
+            descEn: "The first major military victory of Muslims against a superior polytheist army.",
+            descAr: "أول معركة كبرى في الإسلام وانتصار المسلمين رغم قلة عددهم.",
+            contentTr: "Hicretin 2. yılı Ramazan ayında Mekkeli müşriklerin ticaret kervanını korumak için gelen ordusuyla Bedir kuyularında karşılaşıldı. 313 Müslüman, meleklerin yardımı ve ilahi nusretle bin kişilik müşrik ordusunu bozguna uğrattı. Bu zafer İslam devletinin gücünü tescilledi.",
+            contentEn: "Detailed English text about Battle of Badr...",
+            contentAr: "النص التفصيلي باللغة العربية عن غزوة بدر الكبرى..."
+        },
+        {
+            id: 16,
+            category: 'medine',
+            titleTr: "Uhud Savaşı ve Okçuların Hatası (Hicretin 3. Yılı)",
             titleEn: "Battle of Uhud",
-            titleAr: "غزوة أحد الدروس والعبر",
-            badgeTr: "Savaş", badgeEn: "Battle", badgeAr: "غزوة",
-            descTr: "Bedir'in intikamını almak isteyen müşriklere karşı Uhud Dağı eteklerinde yapılan savaş ve stratejik dersler.",
-            descAr: "معركة جبل أحد وما دار فيها من دروس استراتيجية...",
-            contentTr: "Hicretin 3. yılında Mekkeliler kalabalık bir orduyla Medine üzerine yürüdü. Uhud Dağı eteklerinde başlayan savaşta ilk başta üstünlük Müslümanlardaydı. Ancak Ayneyn Geçidi'ne yerleştirilen okçuların yerlerini terk etmesi sonucunda savaşın rengi değişti. Hz. Hamza şehit oldu, Efendimiz yaralandı.",
+            titleAr: "غزوة أحد",
+            badgeTr: "Savaş", badgeEn: "Battle", badgeAr: "أحد",
+            descTr: "Bedir'in intikamı için gelen müşriklere karşı Uhud Dağı'nda verilen imtihan ve stratejik dersler.",
+            descAr: "معركة أحد واستشهاد حمزة بن عبدالمطلب والدروس المستفادة.",
+            contentTr: "Mekkeliler Bedir'in intikamını almak için büyük bir orduyla Medine'ye yürüdü. Uhud Dağı eteklerinde yapılan savaşta ilk başta üstünlük sağlandıysa da, Ayneyn Geçidi'ndeki okçuların 'yerinizi terk etmeyin' emrini unutarak ganimet için yerlerini bırakması sonucunda savaşın seyri değişti. Hz. Hamza şehit düştü, Efendimiz yaralandı.",
             contentEn: "Detailed English text about Battle of Uhud...",
             contentAr: "النص التفصيلي باللغة العربية عن غزوة أحد..."
         },
         {
-            id: 8,
+            id: 17,
+            category: 'medine',
+            titleTr: "Hendek Savaşı ve Medine'nin Müdafaası (Hicretin 5. Yılı)",
+            titleEn: "Battle of the Trench (Ahzab)",
+            titleAr: "غزوة الخندق (الأحزاب)",
+            badgeTr: "Savaş", badgeEn: "Battle", badgeAr: "الخندق",
+            descTr: "On bin kişilik müttefik orduya karşı Selman-ı Farisi'nin teklifiyle Medine etrafına hendek kazılması.",
+            descAr: "حفر الخندق حول المدينة المنورة لمواجهة تحالف الأحزاب.",
+            contentTr: "Hicretin 5. yılında Yahudilerin kışkırtmasıyla birleşen 10 bin kişilik Müşrik ve kabile ordusu (Ahzab) Medine'yi kuşattı. Sahabe Hz. Selman-ı Farisi'nin önerisiyle şehrin zayıf yönlerine hendekler kazdı. Şiddetli soğuk ve fırtına sayesinde müttefik ordu perişan olarak kuşatmayı kaldırmak zorunda kaldı.",
+            contentEn: "Detailed English text about Battle of the Trench...",
+            contentAr: "النص التفصيلي باللغة العربية عن غزوة الخندق..."
+        },
+        {
+            id: 18,
+            category: 'medine',
+            titleTr: "Hudeybiye Antlaşması ve Rıdvan Biatı",
+            titleEn: "Treaty of Hudaybiyyah and Pledge of Ridwan",
+            titleAr: "صلح الحديبية وبيعة الرضوان",
+            badgeTr: "Antlaşma", badgeEn: "Treaty", badgeAr: "الحديبية",
+            descTr: "Umre niyetiyle yola çıkan Müslümanların Hudeybiye'de müşriklerle yaptığı stratejik barış antlaşması.",
+            descAr: "معاهدة الصلح التاريخية مع قريش واعترافهم بالمسلمين كطرف سياسي.",
+            contentTr: "Hicretin 6. yılında umre yapmak üzere Mekke'ye hareket eden Müslümanlar Hudeybiye'de durduruldu. Savaş yerine barış yolu seçilerek 10 yıllık Hudeybiye Antlaşması imzalandı. İlk başta ağır şartlar gibi görünse de Kur'an'da 'Fetih-i Mübin' (apaçık fetih) olarak nitelendirildi ve İslam'ın yayılmasını hızlandırdı.",
+            contentEn: "Detailed English text about Hudaybiyyah...",
+            contentAr: "النص التفصيلي باللغة العربية عن صلح الحديبية..."
+        },
+        {
+            id: 19,
+            category: 'medine',
+            titleTr: "Hayber'in Fethi ve Mute Savaşı",
+            titleEn: "Conquest of Khaybar and Battle of Mu'tah",
+            titleAr: "فتح خيبر ومعركة مؤتة",
+            badgeTr: "Savaş", badgeEn: "Battle", badgeAr: "خيبر",
+            descTr: "Yahudi fesat merkezinin ortadan kaldırılması (Hayber) ve Bizans imperatorluğuna karşı ilk askerî adım (Mute).",
+            descAr: "فتح حصون خيبر ومعركة مؤتة ضد الروم بقيادة زيد بن حارثة رضي الله عنه.",
+            contentTr: "Hicretin 7. yılında Müslümanların Medine'deki güvenliğini tehdit eden Hayber kaleleri fethedildi. Aynı yıllarda Bizans sınırında Müslüman elçinin şehit edilmesi üzerine Mute Savaşı yapıldı; Halid bin Velid'in stratejik dehasıyla İslam ordusu güvenle üsse döndü.",
+            contentEn: "Detailed English text about Khaybar and Mu'tah...",
+            contentAr: "النص التفصيلي باللغة العربية عن فتح خيبر ومعركة مؤتة..."
+        },
+        {
+            id: 20,
+            category: 'medine',
+            titleTr: "Mekke'nin Fethi (Hicretin 8. Yılı / 630)",
+            titleEn: "Conquest of Mecca",
+            titleAr: "فتح مكة المكرمة",
+            badgeTr: "Fetih", badgeEn: "Conquest", badgeAr: "الفتح",
+            descTr: "Kureyş'in antlaşmayı bozması üzerine kansız bir şekilde Mekke'nin fethi ve genel af ilan edilmesi.",
+            descAr: "دخول مكة فاتحين دون قتال وعفو النبي عن أهل مكة (اذهبوا فأنتم الطلقاء).",
+            contentTr: "Müşriklerin Hudeybiye Antlaşması'nı ihlal etmesi üzerine Hz. Muhammed (SAV) 10 bin kişilik dev bir orduyla Mekke üzerine yürüdü. 8 Ocak 630'da şehir neredeyse hiç dirençle karşılaşılmadan kansız bir şekilde fethedildi. Kabe putlardan temizlendi ve yıllarca zulmeden Mekkelilere 'Bugün size kınama yok, serbestsiniz' denilerek af ilan edildi.",
+            contentEn: "Detailed English text about Conquest of Mecca...",
+            contentAr: "النص التفصيلي باللغة العربية عن فتح مكة..."
+        },
+        {
+            id: 21,
+            category: 'medine',
+            titleTr: "Huneyn Savaşı ve Tebük Seferi",
+            titleEn: "Battle of Hunayn and Expedition of Tabuk",
+            titleAr: "غزوة حنين وغزوة تبوك",
+            badgeTr: "Savaş", badgeEn: "Battle", badgeAr: "تبوك",
+            descTr: "Mekke fethinden hemen sonra Huneyn'de kazanılan zafer ve Bizans sınırına yapılan son büyük Tebük Seferi.",
+            descAr: "معركة حنين ضد هوازن ووثقيف وغزوة تبوك كآخر غزوة قادها النبي.",
+            contentTr: "Mekke fethinin ardından Hevazin kabilesiyle Huneyn'de zorlu bir savaş yapıldı, sabırla zafer kazanıldı. Hicretin 9. yılında ise Bizans'ın saldırı hazırlığı üzerine havanın çok sıcak ve kıtlık olmasına rağmen 30 bin kişilik orduyla Tebük'e yürüdü. Düşman korkup dağıldı; bu Efendimizin son gazvesidir.",
+            contentEn: "Detailed English text about Hunayn and Tabuk...",
+            contentAr: "النص التفصيلي باللغة العربية عن غزوة حنين وتبوك..."
+        },
+        {
+            id: 22,
             category: 'ahlak',
             titleTr: "Peygamberimizin Şemaili (Fiziki Özellikleri)",
             titleEn: "Physical Appearance (Shama'il)",
             titleAr: "شمائل النبي صلى الله عليه وسلم الخلقية",
             badgeTr: "Şemail", badgeEn: "Shama'il", badgeAr: "الشمائل",
-            descTr: "Ashabın gözüyle Peygamber Efendimiz'in mübarek fiziki özellikleri, duruşu ve nurani güzelliği.",
-            descEn: "The physical description and noble characteristics of the Prophet as witnessed by his Companions.",
-            descAr: "صفات النبي صلى الله عليه وسلم الخلقة والخلقية...",
-            contentTr: "Hz. Muhammed (SAV) orta boylu, ne çok uzun ne çok kısaydı. Teni pembe beyaza meyilli nurluydu. Saçları ne kıvırcık ne düz, kulak memelerini aşan dalgalı yapıdaydı. Mübarek yüzü dolunay gibi parlardı. Yürürken öne doğru meyilli, vakarlı ve hızlı adımlarla yürürdü. O'nu ilk gören kimsede büyük bir heybet, tanıdıkça ise derin bir muhabbet uyanırdı.",
+            descTr: "Ashabın tasviriyle Peygamberimizin mübarek yüzü, boyu, yürüyüşü ve nurani güzelliği.",
+            descEn: "The detailed physical descriptions of the Prophet recorded by his companions.",
+            descAr: "الوصف الدقيق لصفات النبي الخلقية كما رواها الصحابة الكرام.",
+            contentTr: "Hz. Muhammed (SAV) ne çok uzun ne çok kısa, orta boyluydu. Teni pembe beyaza meyilli nurlu, saçları hafif dalgalıydı. Mübarek yüzü dolunay gibi parıldardı. İki omuzunun arasında 'Nübüvvet Mührü' bulunuyordu. Yürürken öne doğru meyilli, hızlı ve vakarlı adımlar atardı. O'nu görenler heybetinden etkilenir, tanıdıkça derin bir sevgi duyarlardı.",
             contentEn: "Detailed English text about Shama'il...",
-            contentAr: "النص التفصيلي باللغة العربية عن الشمائل النبوية..."
+            contentAr: "النص التفصيلي باللغة العربية عن الشمائل الشريفة..."
         },
         {
-            id: 9,
+            id: 23,
             category: 'ahlak',
-            titleTr: "Örnek Ahlakı ve Merhameti",
-            titleEn: "Noble Character and Mercy",
-            titleAr: "أخلاقه العالية ورحمته للعالمين",
+            titleTr: "Yüce Ahlakı, Merhameti ve Örnek Aile Hayatı",
+            titleEn: "Noble Character, Mercy and Family Life",
+            titleAr: "خلقه العظيم ورحمته وحياته الأسرية",
             badgeTr: "Ahlak", badgeEn: "Character", badgeAr: "الأخلاق",
-            descTr: "'Sen elbette yüce bir ahlak üzeresin' (Kalem, 4) ayetinin tecellisi olan rahmet ve adalet anlayışı.",
-            descEn: "The embodiment of the verse 'And indeed, you are of a great moral character'.",
-            descAr: "خلقه العظيم ورحمته الواسعة بالناس...",
-            contentTr: "Efendimiz (SAV) hayatı boyunca asla yalan söylememiş, emanete hıyanet etmemişti (el-Emîn). En şiddetli düşmanlarına dahi affedici davranmış, Mekke'nin fethinde kendisine zulmedenlere 'Bugün kınama yok, sizler serbestsiniz' buyurmuştur. Çocuklara şefkatle yaklaşır, ev işlerinde eşlerine yardım ederdi.",
-            contentEn: "Detailed English text about his character...",
-            contentAr: "النص التفصيلي باللغة العربية عن أخلاقه..."
+            descTr: "'Sen elbette yüce bir ahlak üzeresin' ayetinin tecellisi; eşlerine ve çocuklara olan şefkati.",
+            descAr: "أخلاقه الكريمة، رحمته بالناس، وحسن تعامله مع أهله وزوجات امهاته.",
+            contentTr: "Efendimiz (SAV) hayatı boyunca asla kaba davranmamış, intikam almamıştır. Eşlerine ev işlerinde yardım eder, çocukları çok sever, torunları Hasan ve Hüseyin ile oyunlar oynardı. Hayvanlara ve bitkilere dahi merhamet edilmesini emretmiş, 'Ben ancak rahmet olarak gönderildim' buyurmuştur.",
+            contentEn: "Detailed English text about his character and family life...",
+            contentAr: "النص التفصيلي باللغة العربية عن خلقه ورحمته..."
         },
         {
-            id: 10,
+            id: 24,
             category: 'veda',
-            titleTr: "Veda Haccı ve Evrensel Veda Hutbesi",
+            titleTr: "Veda Haccı ve Evrensel Veda Hutbesi (Hicretin 10. Yılı)",
             titleEn: "Farewell Pilgrimage and Sermon",
             titleAr: "حجة الوداع وخطبة الوداع التاريخية",
             badgeTr: "Veda", badgeEn: "Farewell", badgeAr: "الوداع",
-            descTr: "Hicretin 10. yılında yüz bin sahabiyle yaptığı son haccı ve insanlığa bıraktığı evrensel insan hakları beyannamesi.",
-            descEn: "The final pilgrimage in the 10th year of Hijrah and the universal human rights declaration.",
-            descAr: "حجة الوداع في السنة العاشرة للهجرة وخطبته الجامعة...",
-            contentTr: "Peygamber Efendimiz (SAV) hicretin 10. yılında hayatının tek haccı olan Veda Haccı'nı ifa etti. Arafat'ta 100 bini aşkın Müslümana irad ettiği Veda Hutbesi'nde; insan haklarını, kan davalarının kaldırıldığını, kadın haklarını, faiz yasaklarını ve ırk üstünlüğünün ancak takva ile olacağını ilan etti.",
-            contentEn: "Detailed English text about Farewell sermon...",
-            contentAr: "النص التفصيلي باللغة العربية عن خطبة الوداع..."
+            descTr: "Hicretin 10. yılında yüz bin sahabeyle yaptığı tek haccı ve insanlığa bıraktığı evrensel insan hakları beyannamesi.",
+            descAr: "حجة الوداع في السنة العاشرة للهجرة وخطبته الجامعة التي تقرر حقوق الإنسان.",
+            contentTr: "Hicretin 10. yılında hayatının tek haccı olan Veda Haccı'nı ifa etti. Arafat'ta 100 binden fazla Müslümana irad ettiği Veda Hutbesi'nde; insan haklarını, can ve mal dokunulmazlığını, faizin ve kan davalarının kaldırıldığını, kadınların haklarını ve ırk üstünlüğünün ancak takva ile olacağını bütün dünyaya ilan etti.",
+            contentEn: "Detailed English text about Farewell Pilgrimage and Sermon...",
+            contentAr: "النص التفصيلي باللغة العربية عن حجة الوداع وخطبة الوداع..."
         },
         {
-            id: 11,
+            id: 25,
             category: 'veda',
-            titleTr: "Rüfûk-i Âlâ'ya Yürüyüşü (Vefatı)",
-            titleEn: "Passing to the Highest Companion",
-            titleAr: "الوفاة والالتحاق بالرفيق الأعلى",
+            titleTr: "Rüfûk-i Âlâ'ya Yürüyüşü (Vefatı - 8 Haziran 632)",
+            titleEn: "Passing to the Highest Companion (Passing)",
+            titleAr: "الالتحاق بالرفيق الأعلى ووفاته الشريفة",
             badgeTr: "Vefat", badgeEn: "Passing", badgeAr: "الوفاة",
-            descTr: "Hicretin 11. yılı Rebiülevvel ayının 12. gününde Yüce Rabbimizin rahmetine kavuştu.",
-            descEn: "Passing away in the 11th year of Hijrah in Medina.",
-            descAr: "انتقاله إلى الرفيق الأعلى في ربيع الأول من السنة الحادية عشرة...",
-            contentTr: "Veda Haccı'ndan kısa bir süre sonra rahatsızlanan Peygamber Efendimiz (SAV), sıtma ve ateşli hastalık geçirdi. Son günlerinde ashabına namaz kıldırma görevini Hz. Ebû Bekir'e bıraktı. 'Rüfûk-i Âlâ'ya (Yüce Dosta) kavuşmayı dileyerek miladi 8 Haziran 632 tarihinde Medine'de Mescid-i Nebevi'ye bitişik olan Hz. Ayşe'nin odasında vefat etti.",
+            descTr: "Hicretin 11. yılı Rebiülevvel ayının 12. gününde Medine'de Yüce Rabbimizin rahmetine kavuşması.",
+            descAr: "وفاته صلى الله عليه وسلم في المدينة المنورة في ربيع الأول من السنة 11 هجرية.",
+            contentTr: "Veda Haccı'ndan döndükten bir süre sonra ateşli bir hastalığa yakalandı. Son günlerinde ashabına namaz kıldırma görevini Hz. Ebû Bekir'e bıraktı. 'Rüfûk-i Âlâ'ya (Yüce Dosta) kavuşmayı dileyerek miladi 8 Haziran 632 (Hicri 11, Rebiülevvel 12) Pazartesi günü Medine'de Mescid-i Nebevi'ye bitişik olan Hz. Ayşe'nin odasında vefat etti.",
             contentEn: "Detailed English text about his passing...",
-            contentAr: "النص التفصيلي باللغة العربية عن وفاته..."
+            contentAr: "النص التفصيلي باللغة العربية عن وفاته وانتقاله إلى الرفيق الأعلى..."
         }
     ];
 
