@@ -35,9 +35,9 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title data-i18n="page_title">Siyer-i Nebi Ansiklopedisi | Ayetin Vakti</title>
+    <title data-i18n="page_title">Siyer-i Nebi | Ayetin Vakti</title>
     
-    <meta property="og:title" content="Siyer-i Nebi Ansiklopedisi | Ayetin Vakti">
+    <meta property="og:title" content="Siyer-i Nebi | Ayetin Vakti">
     <meta property="og:description" content="Peygamber Efendimiz'in (SAV) hayatı, tüm gazveleri, örnek ahlakı ve asr-ı saadet kıssaları.">
     <meta property="og:type" content="website">
 
@@ -353,23 +353,23 @@
     </div>
 
     <div class="header">
-        <h1 data-i18n="main_title">Siyer-i Nebi Ansiklopedisi</h1>
-        <p data-i18n="brand_subtitle">Peygamber Efendimiz’in (SAV) Hayatının Tüm Evreleri ve Gazveler</p>
+        <h1 data-i18n="main_title">Siyer-i Nebi</h1>
+        <p data-i18n="brand_subtitle">Peygamber Efendimiz’in (SAV) Hayatı, Savaşları ve Örnek Ahlakı</p>
     </div>
 
     <!-- Arama Çubuğu -->
     <div class="search-box">
-        <input type="text" id="searchInput" class="search-input" placeholder="Ansiklopedide ara (Örn: Bedir, Uhud, Hz. Hatice)..." oninput="handleSearch()">
+        <input type="text" id="searchInput" class="search-input" placeholder="Arşivde ara (Örn: Bedir, Uhud, Hz. Hatice)..." oninput="handleSearch()">
     </div>
 
     <!-- Dönem Sekmeleri -->
     <div class="category-tabs" id="categoryTabs">
         <button class="tab-btn active" onclick="filterCategory('all', this)" data-i18n="tab_all">Tümü</button>
-        <button class="tab-btn" onclick="filterCategory('dogus', this)" data-i18n="tab_dogus">Doğuş ve Çocukluk</button>
-        <button class="tab-btn" onclick="filterCategory('mekke', this)" data-i18n="tab_mekke">Mekke Dönemi</button>
-        <button class="tab-btn" onclick="filterCategory('medine', this)" data-i18n="tab_medine">Medine ve Savaşlar</button>
-        <button class="tab-btn" onclick="filterCategory('ahlak', this)" data-i18n="tab_ahlak">Ahlak ve Şemail</button>
-        <button class="tab-btn" onclick="filterCategory('veda', this)" data-i18n="tab_veda">Veda ve Vefat</button>
+        <button class="tab-btn" onclick="filterCategory('dogus', this)" data-i18n="tab_dogus">Doğuş</button>
+        <button class="tab-btn" onclick="filterCategory('mekke', this)" data-i18n="tab_mekke">Mekke</button>
+        <button class="tab-btn" onclick="filterCategory('medine', this)" data-i18n="tab_medine">Medine</button>
+        <button class="tab-btn" onclick="filterCategory('ahlak', this)" data-i18n="tab_ahlak">Ahlak</button>
+        <button class="tab-btn" onclick="filterCategory('veda', this)" data-i18n="tab_veda">Veda</button>
     </div>
 
     <!-- Konu Kartları Listesi -->
@@ -394,9 +394,9 @@
 <script>
     const translations = {
         tr: {
-            page_title: "Siyer-i Nebi Ansiklopedisi | Ayetin Vakti",
-            main_title: "Siyer-i Nebi Ansiklopedisi",
-            brand_subtitle: "Peygamber Efendimiz’in (SAV) Hayatının Tüm Evreleri ve Gazveler",
+            page_title: "Siyer-i Nebi | Ayetin Vakti",
+            main_title: "Siyer-i Nebi",
+            brand_subtitle: "Peygamber Efendimiz’in (SAV) Hayatı, Savaşları ve Örnek Ahlakı",
             tab_all: "Tümü",
             tab_dogus: "Doğuş",
             tab_mekke: "Mekke",
@@ -405,9 +405,9 @@
             tab_veda: "Veda"
         },
         en: {
-            page_title: "Seerah Encyclopedia | Ayetin Vakti",
-            main_title: "Prophet's Life Encyclopedia",
-            brand_subtitle: "Complete Life Stages and Battles of Prophet Muhammad (PBUH)",
+            page_title: "Seerah | Ayetin Vakti",
+            main_title: "Seerah of the Prophet",
+            brand_subtitle: "Life, Battles and Character of Prophet Muhammad (PBUH)",
             tab_all: "All",
             tab_dogus: "Early Life",
             tab_mekke: "Meccan",
@@ -416,9 +416,9 @@
             tab_veda: "Farewell"
         },
         ar: {
-            page_title: "موسوعة السيرة النبوية | آية الوقت",
-            main_title: "موسوعة السيرة النبوية",
-            brand_subtitle: "مراحل حياة النبي محمد صلى الله عليه وسلم وغزواته الشريفة",
+            page_title: "السيرة النبوية | آية الوقت",
+            main_title: "السيرة النبوية",
+            brand_subtitle: "حياة النبي محمد صلى الله عليه وسلم وغزواته وأخلاقه",
             tab_all: "الكل",
             tab_dogus: "النشأة",
             tab_mekke: "العهد المكي",
@@ -436,14 +436,14 @@
         {
             id: 1,
             category: 'dogus',
-            titleTr: "Nesebi, Ailesi ve Fill Vak'ası (Amûl-Fîl)",
+            titleTr: "Nesebi, Ailesi ve Fil Vak'ası (Amûl-Fîl)",
             titleEn: "Lineage, Family and Year of the Elephant",
             titleAr: "نسبه الشريف وعام الفيل",
             badgeTr: "Doğuş", badgeEn: "Lineage", badgeAr: "النسب",
             descTr: "Peygamber Efendimiz'in pak nesebi, Hz. İbrahim'e uzanan soyağacı ve Ebrehe'nin Kabe'yi yıkma girişimi.",
             descEn: "The noble lineage of the Prophet and Abraha's failed expedition against the Kaaba.",
             descAr: "نسب النبي الكريم إلى إبراهيم عليه السلام وقصة أصحاب الفيل.",
-            contentTr: "Peygamber Efendimiz Hz. Muhammed Mustafa (SAV), Hz. İbrahim'in oğlu Hz. İsmail'e uzanan seçkin bir nesep zincirine sahiptir. Babası Abdullah, annesi Âmine binti Vehb'dir. Doğumundan kısa süre önce (veya hemen sonra) Ebrehe, Kâbe'yi yıkmak üzere fil ordusuyla Mekke'ye gelmiş, ancak Ebâbil kuşları ile helak edilmiştir. Bu olay 'Fil Vak'ası' olarak tarihe geçmiştir.",
+            contentTr: "Peygamber Efendimiz Hz. Muhammed Mustafa (SAV), Hz. İbrahim'in oğlu Hz. İsmail'e uzanan seçkin bir nesep zincirine sahiptir. Babası Abdullah, annesi Âmine binti Vehb'dir. Doğumundan kısa süre önce Ebrehe, Kâbe'yi yıkmak üzere fil ordusuyla Mekke'ye gelmiş, ancak Ebâbil kuşları ile helak edilmiştir. Bu olay 'Fil Vak'ası' olarak tarihe geçmiştir.",
             contentEn: "Detailed English text about lineage and Year of the Elephant...",
             contentAr: "النص التفصيلي باللغة العربية عن النسب وعام الفيل..."
         },
@@ -457,7 +457,7 @@
             descTr: "Rebiülevvel ayının 12. Pazartesi gecesi Mekke'de doğumu ve doğuştan gelen hikmetler.",
             descEn: "Birth in Mecca on the 12th of Rabi' al-Awwal and growing up as an orphan.",
             descAr: "ولادته في فجر الاثنين من ربیع الأول ووفاة أبيه عبدالله.",
-            contentTr: "Efendimiz (SAV), miladi 571 yılı Rebiülevvel ayının 12. Pazartesi sabaha karşı Mekke'de dünyayı teşrif etti. Babası Abdullah, ticaret için gittiği Medine'den dönerken hastalanıp vefat etmişti. Bu sebeple dünyaya yetim olarak gözlerini açtı. Dedesinin himayesinde kutsal bir atmosferde büyümeye başladı.",
+            contentTr: "Efendimiz (SAV), miladi 571 yılı Rebiülevvel ayının 12. Pazartesi sabaha karşı Mekke'de dünyayı teşrif etti. Babası Abdullah, ticaret için gittiği Medine'den dönerken hastalanıp vefat etmişti. Bu sebeple dünyaya yetim olarak gözlerini açdı. Dedesinin himayesinde kutsal bir atmosferde büyümeye başladı.",
             contentEn: "Detailed English text about his birth...",
             contentAr: "النص التفصيلي باللغة العربية عن مولده..."
         },
@@ -550,9 +550,9 @@
             category: 'mekke',
             titleTr: "Açık Davet, Safa Tepesi ve Müşriklerin Tepkisi",
             titleEn: "Public Preaching and Opposition",
-            titleAr: "الججهر بالدعوة وموقف قريش المعادي",
+            titleAr: "الجهر بالدعوة وموقف قريش المعادي",
             badgeTr: "Mekke", badgeEn: "Mecca", badgeAr: "مكة",
-            descTr: "'Artık sana emrolunanı açıkça bildir' emriyle Safa tepesinden halkı İslam'a çağırması ve kureyş'in zulmü.",
+            descTr: "'Artık sana emrolunanı açıkça bildir' emriyle Safa tepesinden halkı İslam'a çağırması ve Kureyş'in zulmü.",
             descEn: "Public call to Islam from Mount Safa and the onset of Quraysh persecution.",
             descAr: "الجهر بالدعوة إثر نزول قوله تعالى (فاصدع بما تؤمر) ومعارضة قريش.",
             contentTr: "'Şimdi sana emrolunanı açıkça söyle ve müşriklere aldırış etme' (Hicr, 94) ayeti inince Peygamberimiz Safa tepesine çıkarak Kureyş kabilelerini İslam'a çağırdı. Ebû Leheb ve önde gelenler karşı çıktı. Bunun üzerine Müslümanlara yönelik hakaret, boykot ve işkence dönemi başladı.",
@@ -578,7 +578,7 @@
             category: 'mekke',
             titleTr: "Taif Yolculuğu ve İsrâ ve Miraç Mucizesi",
             titleEn: "Journey to Taif and Isra and Miraj",
-            titleAr: "رحلة الطائف معجزة الإسراء والمعراج",
+            titleAr: "رحلة الطائف ومعجزة الإسراء والمعراج",
             badgeTr: "Mucize", badgeEn: "Miracle", badgeAr: "المعراج",
             descTr: "Taif'te taşlanmasına rağmen sabretmesi ve Mescid-i Haram'dan Mescid-i Aksa'ya, oradan semaya yükselişi.",
             descEn: "Enduring hardship in Taif and the miraculous nocturnal journey and ascension.",
@@ -590,7 +590,7 @@
         {
             id: 12,
             category: 'mekke',
-            titleTr: "Akabe Biatları ve Hicir Kararı",
+            titleTr: "Akabe Biatları ve Hicret Kararı",
             titleEn: "Pledges of Aqabah and Migration Decision",
             titleAr: "بيعتا العقبة الأولى والثانية",
             badgeTr: "Biat", badgeEn: "Pledge", badgeAr: "العقبة",
@@ -610,7 +610,7 @@
             badgeTr: "Medine", badgeEn: "Hijra", badgeAr: "الهجرة",
             descTr: "Müşriklerin suikast planını bozarak Hz. Ebû Bekir ile Sevr Mağarası'na sığınmaları ve Medine'ye varış.",
             descEn: "Evading Quraysh assassins, sheltering in Cave of Thawr, and arriving in Medina.",
-            descAr: "خروج النبي مع أبي طالب/أبي بكر إلى غار ثور والوصول إلى المدينة المنورة.",
+            descAr: "خروج النبي مع أبي بكر إلى غار ثور والوصول إلى المدينة المنورة.",
             contentTr: "Müşrikler suikast planı yaparken Hz. Ali'yi yatağına bırakıp Hz. Ebû Bekir ile Sevr Mağarası'na gizlendi. Müşrikler mağara kapısına kadar geldiğinde Allah'ın korumasıyla (örümcek ağı ve güvercin yuvası) kurtuldular. 12 Eylül 622'de Kuba'ya, ardından Medine'ye ulaştılar. Bu olay hicri takvimin başlangıcı oldu.",
             contentEn: "Detailed English text about Hijra and Cave of Thawr...",
             contentAr: "النص التفصيلي باللغة العربية عن الهجرة وغار ثور..."
@@ -618,14 +618,14 @@
         {
             id: 14,
             category: 'medine',
-            titleTr: "Medine'de Toplumun İnşası: Mescid, Mıahat ve Sözleşme",
+            titleTr: "Medine'de Toplumun İnşası: Mescid, Muahat ve Sözleşme",
             titleEn: "Building Medina Society: Mosque, Brotherhood, Constitution",
             titleAr: "بناء المجتمع المدني: المسجد، المؤاخاة، وثيقة المدينة",
             badgeTr: "Medine", badgeEn: "Medina", badgeAr: "الدولة",
             descTr: "Mescid-i Nebevi'nin inşası, Muhacir ile Ensar'ın kardeş ilan edilmesi ve Medine Sözleşmesi.",
             descEn: "Building Masjid al-Nabawi, establishing brotherhood between Muhajirun and Ansar, and Medina Charter.",
             descAr: "بناء المسجد النبوي، المؤاخاة بين المهاجرين والأنصار، وصحيفة المدينة.",
-            contentTr: "Medine'ye varır varmaz ilk iş olarak Mescid-i Nebevi inşa edildi. Mekkeli göçmenler (Muhacir) ile Medinli yardımcılar (Ensar) kardeş ilan edildi (Muahat). Ayrıca Yahudiler ve diğer kabilelerle birlikte yaşama esaslarını belirleyen 'Medine Sözleşmesi' (Anayasası) imzalandı.",
+            contentTr: "Medine'ye varır varmaz ilk iş olarak Mescid-i Nebevi inşa edildi. Mekkeli göçmenler (Muhacir) ile Medineli yardımcılar (Ensar) kardeş ilan edildi (Muahat). Ayrıca Yahudiler ve diğer kabilelerle birlikte yaşama esaslarını belirleyen 'Medine Sözleşmesi' (Anayasası) imzalandı.",
             contentEn: "Detailed English text about Medina society...",
             contentAr: "النص التفصيلي باللغة العربية عن بناء المجتمع المدني..."
         },
@@ -716,7 +716,7 @@
             titleAr: "غزوة حنين وغزوة تبوك",
             badgeTr: "Savaş", badgeEn: "Battle", badgeAr: "تبوك",
             descTr: "Mekke fethinden hemen sonra Huneyn'de kazanılan zafer ve Bizans sınırına yapılan son büyük Tebük Seferi.",
-            descAr: "معركة حنين ضد هوازن ووثقيف وغزوة تبوك كآخر غزوة قادها النبي.",
+            descAr: "معركة حنين ضد هوازن وثقيف وغزوة تبوك كآخر غزوة قادها النبي.",
             contentTr: "Mekke fethinin ardından Hevazin kabilesiyle Huneyn'de zorlu bir savaş yapıldı, sabırla zafer kazanıldı. Hicretin 9. yılında ise Bizans'ın saldırı hazırlığı üzerine havanın çok sıcak ve kıtlık olmasına rağmen 30 bin kişilik orduyla Tebük'e yürüdü. Düşman korkup dağıldı; bu Efendimizin son gazvesidir.",
             contentEn: "Detailed English text about Hunayn and Tabuk...",
             contentAr: "النص التفصيلي باللغة العربية عن غزوة حنين وتبوك..."
@@ -743,7 +743,7 @@
             titleAr: "خلقه العظيم ورحمته وحياته الأسرية",
             badgeTr: "Ahlak", badgeEn: "Character", badgeAr: "الأخلاق",
             descTr: "'Sen elbette yüce bir ahlak üzeresin' ayetinin tecellisi; eşlerine ve çocuklara olan şefkati.",
-            descAr: "أخلاقه الكريمة، رحمته بالناس، وحسن تعامله مع أهله وزوجات امهاته.",
+            descAr: "أخلاقه الكريمة، رحمته بالناس، وحسن تعامله مع أهله.",
             contentTr: "Efendimiz (SAV) hayatı boyunca asla kaba davranmamış, intikam almamıştır. Eşlerine ev işlerinde yardım eder, çocukları çok sever, torunları Hasan ve Hüseyin ile oyunlar oynardı. Hayvanlara ve bitkilere dahi merhamet edilmesini emretmiş, 'Ben ancak rahmet olarak gönderildim' buyurmuştur.",
             contentEn: "Detailed English text about his character and family life...",
             contentAr: "النص التفصيلي باللغة العربية عن خلقه ورحمته..."
