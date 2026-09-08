@@ -6,6 +6,7 @@
     <meta http-equiv="Expires" content="0">
 
     <script>
+        // Tema ve Özel Renk Paleti Kontrolü (Titremeyi önlemek için en başta çalışır)
         const savedTheme = localStorage.getItem('theme');
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         if (savedTheme === 'light' || (!savedTheme && !systemPrefersDark)) {
@@ -103,6 +104,7 @@
             align-items: center;
             justify-content: space-between;
             margin-bottom: 20px;
+            position: relative;
         }
 
         [dir="rtl"] .navbar {
@@ -208,7 +210,7 @@
             color: #fff;
         }
 
-        /* Konu Listesi */
+        /* Konu Listesi Kartları */
         .content-list {
             width: 100%;
             display: flex;
@@ -262,7 +264,7 @@
             overflow: hidden;
         }
 
-        /* Detay Paneli (Modal) */
+        /* Detay Okuma Modal / Paneli */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -360,121 +362,229 @@
         <input type="text" id="searchInput" class="search-input" placeholder="Arşivde ara (Örn: Hira, Uhud, Veda)..." oninput="handleSearch()">
     </div>
 
-    <!-- Kategoriler -->
+    <!-- Dönem Sekmeleri -->
     <div class="category-tabs" id="categoryTabs">
-        <button class="tab-btn active" onclick="filterCategory('all', this)">Tümü</button>
-        <button class="tab-btn" onclick="filterCategory('dogus', this)">Doğuşu ve Çocukluğu</button>
-        <button class="tab-btn" onclick="filterCategory('risalet', this)">Mekke Dönemi</button>
-        <button class="tab-btn" onclick="filterCategory('medine', this)">Medine ve Savaşlar</button>
-        <button class="tab-btn" onclick="filterCategory('ahlak', this)">Ahlakı ve Şemaili</button>
-        <button class="tab-btn" onclick="filterCategory('veda', this)">Veda ve Vefat</button>
+        <button class="tab-btn active" onclick="filterCategory('all', this)" data-i18n="tab_all">Tümü</button>
+        <button class="tab-btn" onclick="filterCategory('dogus', this)" data-i18n="tab_dogus">Doğuşu ve Çocukluğu</button>
+        <button class="tab-btn" onclick="filterCategory('risalet', this)" data-i18n="tab_risalet">Mekke Dönemi</button>
+        <button class="tab-btn" onclick="filterCategory('medine', this)" data-i18n="tab_medine">Medine ve Savaşlar</button>
+        <button class="tab-btn" onclick="filterCategory('ahlak', this)" data-i18n="tab_ahlak">Ahlakı ve Şemaili</button>
+        <button class="tab-btn" onclick="filterCategory('veda', this)" data-i18n="tab_veda">Veda ve Vefat</button>
     </div>
 
-    <!-- Kart Listesi -->
-    <div class="content-list" id="contentList"></div>
+    <!-- Konu Kartları Listesi -->
+    <div class="content-list" id="contentList">
+        <!-- Javascript ile Dinamik Dolacak -->
+    </div>
 </div>
 
-<!-- Detay Paneli -->
+<!-- Detay Okuma Paneli -->
 <div class="modal-overlay" id="detailModal" onclick="closeModalOutside(event)">
     <div class="modal-sheet">
         <div class="modal-header-row">
             <div class="modal-title-text" id="modalTitle">Konu Başlığı</div>
             <button class="close-modal-btn" onclick="closeModal()">✕</button>
         </div>
-        <div class="modal-body-text" id="modalBody"></div>
+        <div class="modal-body-text" id="modalBody">
+            İçerik buraya gelecek...
+        </div>
     </div>
 </div>
 
 <script>
+    const translations = {
+        tr: {
+            page_title: "Siyer-i Nebi Ansiklopedisi | Ayetin Vakti",
+            main_title: "Siyer-i Nebi Ansiklopedisi",
+            brand_subtitle: "Peygamber Efendimiz’in (SAV) Hayatı, Savaşları ve Örnek Ahlakı",
+            tab_all: "Tümü",
+            tab_dogus: "Doğuşu",
+            tab_risalet: "Mekke",
+            tab_medine: "Medine",
+            tab_ahlak: "Ahlakı",
+            tab_veda: "Veda"
+        },
+        en: {
+            page_title: "Seerah Encyclopedia | Ayetin Vakti",
+            main_title: "Prophet's Life Encyclopedia",
+            brand_subtitle: "Life, Battles and Character of Prophet Muhammad (PBUH)",
+            tab_all: "All",
+            tab_dogus: "Early Life",
+            tab_risalet: "Meccan",
+            tab_medine: "Medinan",
+            tab_ahlak: "Character",
+            tab_veda: "Farewell"
+        },
+        ar: {
+            page_title: "موسوعة السيرة النبوية | آية الوقت",
+            main_title: "موسوعة السيرة النبوية",
+            brand_subtitle: "حياة النبي محمد صلى الله عليه وسلم وغزواته وأخلاقه",
+            tab_all: "الكل",
+            tab_dogus: "النشأة",
+            tab_risalet: "العهد المكي",
+            tab_medine: "العهد المدني",
+            tab_ahlak: "الأخلاق",
+            tab_veda: "الوفاة"
+        }
+    };
+
+    const activeLang = localStorage.getItem('user_lang') || 'tr';
+    const t = translations[activeLang] || translations['tr'];
+
     // Genişletilmiş Dev Arşiv Veritabanı
     const siyerData = [
         {
             id: 1,
             category: 'dogus',
-            title: "Dünyaya Teşrifleri (Amûl-Fîl ve Doğumu)",
-            badge: "Doğuş",
-            desc: "Peygamber Efendimiz Hz. Muhammed (SAV), Rebiülevvel ayının 12. gecesi Mekke'de dünyaya teşrif ettiler.",
-            content: "Peygamber Efendimiz Hz. Muhammed (SAV), miladi 571 yılı, Rebiülevvel ayının 12. Pazartesi gecesi sabaha karşı Mekke'de dünyaya geldi. Babası Abdullah, o doğmadan önce 25 yaşında vefat etmişti. Annesi Âmine Hatun, dedesi ise Kureyş'in lideri Abdülmuttalip'tir.\n\nDoğumu sırasında âlemde birçok olağanüstü olay (irhasat) gerçekleşti; İran sarayının sütunları sarsıldı, Mecusilerin bin yıldır sönmeyen kutsal ateşi söndü ve Save Gölü kurudu."
+            titleTr: "Dünyaya Teşrifleri (Amûl-Fîl ve Doğumu)",
+            titleEn: "Birth of the Prophet",
+            titleAr: "مولد النبي صلى الله عليه وسلم العام فيل",
+            badgeTr: "Doğuş", badgeEn: "Birth", badgeAr: "مولد",
+            descTr: "Peygamber Efendimiz Hz. Muhammed (SAV), Rebiülevvel ayının 12. gecesi Mekke'de dünyaya teşrif ettiler.",
+            descEn: "Prophet Muhammad (PBUH) was born in Mecca on the 12th night of Rabi' al-Awwal.",
+            descAr: "وُلد النبي محمد صلى الله عليه وسلم في مكة المكرمة في فجر يوم الاثنين...",
+            contentTr: "Peygamber Efendimiz Hz. Muhammed (SAV), miladi 571 yılı, Rebiülevvel ayının 12. Pazartesi gecesi sabaha karşı Mekke'de dünyaya geldi. Babası Abdullah, o doğmadan önce 25 yaşında vefat etmişti. Annesi Âmine Hatun, dedesi ise Kureyş'in lideri Abdülmuttalip'tir.\n\nDoğumu sırasında âlemde birçok olağanüstü olay (irhasat) gerçekleşti; İran sarayının sütunları sarsıldı, Mecusilerin bin yıldır sönmeyen kutsal ateşi söndü ve Save Gölü kurudu.",
+            contentEn: "Detailed English text about the birth...",
+            contentAr: "النص التفصيلي باللغة العربية عن مولد النبي..."
         },
         {
             id: 2,
             category: 'dogus',
-            title: "Sütanneye Verilmesi ve Halime Hatun",
-            badge: "Çocukluk",
-            desc: "Âdet olduğu üzere Mekke'nin çöl havasında büyümesi ve Arapçayı en fasih şekilde öğrenmesi için Sa'd kabilesinden Halime Hatun'a verildi.",
-            content: "Mekke'nin sıcak ve havası ağır ortamından korunması amacıyla, o dönemin Mekke âdetine göre bebekler kırsaldaki sütannelere verilirdi. Hz. Halime, bereketsiz geçen yılına rağmen Peygamberimizi (SAV) yanına aldıktan sonra evinde bolluk ve bereket gördü. Efendimiz 4 yaşına kadar Sa'd kabilesi arasında sütannesi Halime'nin yanında büyüdü."
+            titleTr: "Sütanneye Verilmesi ve Halime Hatun",
+            titleEn: "Nursing and Halimah",
+            titleAr: "رضاعة النبي صلى الله عليه وسلم وحليمة السعدية",
+            badgeTr: "Çocukluk", badgeEn: "Childhood", badgeAr: "طفولة",
+            descTr: "Âdet olduğu üzere Mekke'nin çöl havasında büyümesi ve Arapçayı en fasih şekilde öğrenmesi için Halime Hatun'a verildi.",
+            descEn: "Sent to Halimah from the Banu Sa'd tribe to grow up in the healthy desert air.",
+            descAr: "أُرسل إلى بني سعد ليرضع في بادية بني سعد ولينشأ على الفصاحة...",
+            contentTr: "Mekke'nin sıcak ve havası ağır ortamından korunması amacıyla bebekler kırsaldaki sütannelere verilirdi. Hz. Halime, bereketsiz geçen yılına rağmen Peygamberimizi (SAV) yanına aldıktan sonra evinde bolluk ve bereket gördü. Efendimiz 4 yaşına kadar Sa'd kabilesi arasında sütannesi Halime'nin yanında büyüdü.",
+            contentEn: "Detailed English text about nursing...",
+            contentAr: "النص التفصيلي باللغة العربية عن الرضاعة..."
         },
         {
             id: 3,
             category: 'risalet',
-            title: "İlk Vahiy ve Hira Mağarası",
-            badge: "Risalet",
-            desc: "40 yaşındayken Hira Mağarası'nda Cebrail (AS) vasıtasıyla ilk vahiy olan Alak Suresi'nin ilk ayetleri nazil oldu.",
-            content: "Hz. Muhammed (SAV) 40 yaşına geldiğinde, insanlardan uzaklaşıp tefekkür etmek için Mekke yakınlarındaki Nur Dağı'nda bulunan Hira Mağarası'na çekilmeyi adet edinmişti.\n\nMiladi 610 yılı Ramazan ayında Cebrail (AS) gelerek 'Oku!' buyurdu. Efendimiz 'Ben okuma bilmem' deyince melek onu kucakladı ve bu olay üç kez tekrarlandı. Ardından 'Yaratan Rabbinin adıyla oku...' ayetleri nazil oldu."
+            titleTr: "İlk Vahiy ve Hira Mağarası",
+            titleEn: "First Revelation: Cave of Hira",
+            titleAr: "الوحي الأول ونزول القرآن في غار حراء",
+            badgeTr: "Risalet", badgeEn: "Revelation", badgeAr: "الوحي",
+            descTr: "40 yaşındayken Hira Mağarası'nda Cebrail (AS) vasıtasıyla ilk vahiy olan Alak Suresi'nin ilk ayetleri nazil oldu.",
+            descEn: "At the age of 40, the first revelation 'Read!' was sent down in the Cave of Hira.",
+            descAr: "في سن الأربعين، نزلت أول آيات سورة العلق في غار حراء...",
+            contentTr: "Hz. Muhammed (SAV) 40 yaşına geldiğinde, insanlardan uzaklaşıp tefekkür etmek için Mekke yakınlarındaki Nur Dağı'nda bulunan Hira Mağarası'na çekilmeyi adet edinmişti.\n\nMiladi 610 yılı Ramazan ayında Cebrail (AS) gelerek 'Oku!' buyurdu. Efendimiz 'Ben okuma bilmem' deyince melek onu kucakladı ve bu olay üç kez tekrarlandı. Ardından 'Yaratan Rabbinin adıyla oku...' ayetleri nazil oldu.",
+            contentEn: "Detailed English text about first revelation...",
+            contentAr: "النص التفصيلي باللغة العربية عن نزول الوحي..."
         },
         {
             id: 4,
             category: 'risalet',
-            title: "Erken Dönem Gizli Davet ve Erkam'ın Evi",
-            badge: "Mekke",
-            desc: "İslam'ın ilk yıllarında tebliğ gizli yürütüldü ve Erkam bin Ebi'l-Erkam'ın evi karargâh olarak kullanıldı.",
-            content: "İlk 3 yıl boyunca İslam daveti gizli tutuldu. İlk Müslümanlar Hz. Hatice, Hz. Ebû Bekir, Hz. Ali ve Hz. Zeyd bin Hârise oldu. Müslüman sayısının artmasıyla birlikte Safa tepesi eteklerindeki Erkam'ın evi (Darü'l-Erkam) Müslümanların sığınağı ve eğitim merkezi haline geldi."
+            titleTr: "Gizli Davet ve Erkam'ın Evi",
+            titleEn: "Secret Invitation and House of Arqam",
+            titleAr: "الدعوة السرية ودار الأرقم",
+            badgeTr: "Mekke", badgeEn: "Mecca", badgeAr: "مكة",
+            descTr: "İslam'ın ilk yıllarında tebliğ gizli yürütüldü ve Erkam bin Ebi'l-Erkam'ın evi karargâh olarak kullanıldı.",
+            descEn: "In the early years, the invitation was secret and Arqam's house served as a base.",
+            descAr: "في السنوات الأولى كانت الدعوة سرية واتخذت دار الأرقم مقراً...",
+            contentTr: "İlk 3 yıl boyunca İslam daveti gizli tutuldu. İlk Müslümanlar Hz. Hatice, Hz. Ebû Bekir, Hz. Ali ve Hz. Zeyd bin Hârise oldu. Müslüman sayısının artmasıyla birlikte Safa tepesi eteklerindeki Erkam'ın evi (Darü'l-Erkam) Müslümanların sığınağı ve eğitim merkezi haline geldi.",
+            contentEn: "Detailed English text about secret invitation...",
+            contentAr: "النص التفصيلي باللغة العربية عن دار الأرقم..."
         },
         {
             id: 5,
             category: 'medine',
-            title: "Hicret (Mekke'den Medine'ye Göç)",
-            badge: "Medine",
-            desc: "Müslümanlara yapılan boykot ve baskıların ardından Allah'ın izniyle Medine'ye hicret gerçekleştirildi.",
-            content: "Mekkelilerin baskıları katlanılmaz hal alınca, Allah Teâlâ'nın izniyle Müslümanlar gruplar halinde Medine'ye göç etmeye başladı. Hz. Muhammed (SAV) ve Hz. Ebû Bekir, müşriklerin suikast planını boşa çıkararak Sevr Mağarası'ndaki mucizevi korumanın ardından Medine'ye ulaştılar. Bu olay, Hicri takvimin başlangıcı kabul edildi."
+            titleTr: "Hicret (Mekke'den Medine'ye Göç)",
+            titleEn: "The Hijra (Migration to Medina)",
+            titleAr: "الهجرة النبوية الشريفة إلى المدينة المنورة",
+            badgeTr: "Medine", badgeEn: "Medina", badgeAr: "هجرة",
+            descTr: "Mekke'deki baskı ve boykotların ardından Allah'ın izniyle Medine'ye hicret gerçekleştirildi.",
+            descEn: "Following severe persecution in Mecca, Muslims migrated to Medina.",
+            descAr: "بعد اشتداد الأذى في مكة، هاجر المسلمون إلى المدينة المنورة...",
+            contentTr: "Mekkelilerin baskıları katlanılmaz hal alınca, Allah Teâlâ'nın izniyle Müslümanlar gruplar halinde Medine'ye göç etmeye başladı. Hz. Muhammed (SAV) ve Hz. Ebû Bekir, müşriklerin suikast planını boşa çıkararak Sevr Mağarası'ndaki mucizevi korumanın ardından Medine'ye ulaştılar. Bu olay, Hicri takvimin başlangıcı kabul edildi.",
+            contentEn: "Detailed English text about Hijra...",
+            contentAr: "النص التفصيلي باللغة العربية عن الهجرة..."
         },
         {
             id: 6,
             category: 'medine',
-            title: "Bedir Savaşı (Hicretin 2. Yılı)",
-            badge: "Savaşlar",
-            desc: "İslam'ın ilk büyük askerî mücadelesi olan Bedir Savaşı, Müslümanların kesin zaferiyle sonuçlandı.",
-            content: "Hicretin 2. yılında (624) Mekkeli müşriklerin ordusuyla Medineli Müslümanlar Bedir kuyuları yakınlarında karşılaştı. Sayıca ve teçhizatca çok üstün olan müşriklere karşı Müslümanlar büyük bir kahramanlık gösterdi. Meleklerin desteğiyle kazanılan Bedir Zaferi, İslam devletinin siyasi ve askeri varlığını tescilledi."
+            titleTr: "Bedir Savaşı (Hicretin 2. Yılı)",
+            titleEn: "Battle of Badr",
+            titleAr: "غزوة بدر الكبرى",
+            badgeTr: "Savaş", badgeEn: "Battle", badgeAr: "غزوة",
+            descTr: "İslam'ın ilk büyük askerî mücadelesi olan Bedir Savaşı, Müslümanların kesin zaferiyle sonuçlandı.",
+            descEn: "The first major military engagement of Islam, resulting in a decisive victory for Muslims.",
+            descAr: "أول معركة كبرى في الإسلام وانتهت بانتصار المسلمين...",
+            contentTr: "Hicretin 2. yılında (624) Mekkeli müşriklerin ordusuyla Medineli Müslümanlar Bedir kuyuları yakınlarında karşılaştı. Sayıca ve teçhizatca çok üstün olan müşriklere karşı Müslümanlar büyük bir kahramanlık gösterdi. Meleklerin desteğiyle kazanılan Bedir Zaferi, İslam devletinin siyasi ve askeri varlığını tescilledi.",
+            contentEn: "Detailed English text about Battle of Badr...",
+            contentAr: "النص التفصيلي باللغة العربية عن غزوة بدر..."
         },
         {
             id: 7,
             category: 'medine',
-            title: "Uhud Savaşı ve İbretleri",
-            badge: "Savaşlar",
-            desc: "Bedir'in intikamını almak isteyen müşriklere karşı Uhud Dağı eteklerinde yapılan savaş ve stratejik hataların dersleri.",
-            content: "Hicretin 3. yılında Mekkeliler kalabalık bir orduyla Medine üzerine yürüdü. Uhud Dağı eteklerinde başlayan savaşta ilk başta üstünlük Müslümanlardaydı. Ancak Ayneyn Geçidi'ne yerleştirilen okçuların yerlerini terk etmesi sonucunda savaşın rengi değişti. Hz. Hamza şehit oldu, Efendimiz yaralandı."
+            titleTr: "Uhud Savaşı ve İbretleri",
+            titleEn: "Battle of Uhud",
+            titleAr: "غزوة أحد الدروس والعبر",
+            badgeTr: "Savaş", badgeEn: "Battle", badgeAr: "غزوة",
+            descTr: "Bedir'in intikamını almak isteyen müşriklere karşı Uhud Dağı eteklerinde yapılan savaş ve stratejik dersler.",
+            descAr: "معركة جبل أحد وما دار فيها من دروس استراتيجية...",
+            contentTr: "Hicretin 3. yılında Mekkeliler kalabalık bir orduyla Medine üzerine yürüdü. Uhud Dağı eteklerinde başlayan savaşta ilk başta üstünlük Müslümanlardaydı. Ancak Ayneyn Geçidi'ne yerleştirilen okçuların yerlerini terk etmesi sonucunda savaşın rengi değişti. Hz. Hamza şehit oldu, Efendimiz yaralandı.",
+            contentEn: "Detailed English text about Battle of Uhud...",
+            contentAr: "النص التفصيلي باللغة العربية عن غزوة أحد..."
         },
         {
             id: 8,
             category: 'ahlak',
-            title: "Peygamberimizin Şemaili (Fiziki Özellikleri)",
-            badge: "Şemail",
-            desc: "Ashabın gözüyle Peygamber Efendimiz'in mübarek fiziki özellikleri, duruşu ve nurani güzelliği.",
-            content: "Hz. Muhammed (SAV) orta boylu, ne çok uzun ne çok kısaydı. Teni pembe beyaza meyilli nurluydu. Saçları ne kıvırcık ne düz, kulak memelerini aşan dalgalı yapıdaydı. Mübarek yüzü dolunay gibi parlardı. Yürürken öne doğru meyilli, vakarlı ve hızlı adımlarla yürürdü. O'nu ilk gören kimsede büyük bir heybet, tanıdıkça ise derin bir muhabbet uyanırdı."
+            titleTr: "Peygamberimizin Şemaili (Fiziki Özellikleri)",
+            titleEn: "Physical Appearance (Shama'il)",
+            titleAr: "شمائل النبي صلى الله عليه وسلم الخلقية",
+            badgeTr: "Şemail", badgeEn: "Shama'il", badgeAr: "الشمائل",
+            descTr: "Ashabın gözüyle Peygamber Efendimiz'in mübarek fiziki özellikleri, duruşu ve nurani güzelliği.",
+            descEn: "The physical description and noble characteristics of the Prophet as witnessed by his Companions.",
+            descAr: "صفات النبي صلى الله عليه وسلم الخلقة والخلقية...",
+            contentTr: "Hz. Muhammed (SAV) orta boylu, ne çok uzun ne çok kısaydı. Teni pembe beyaza meyilli nurluydu. Saçları ne kıvırcık ne düz, kulak memelerini aşan dalgalı yapıdaydı. Mübarek yüzü dolunay gibi parlardı. Yürürken öne doğru meyilli, vakarlı ve hızlı adımlarla yürürdü. O'nu ilk gören kimsede büyük bir heybet, tanıdıkça ise derin bir muhabbet uyanırdı.",
+            contentEn: "Detailed English text about Shama'il...",
+            contentAr: "النص التفصيلي باللغة العربية عن الشمائل النبوية..."
         },
         {
             id: 9,
             category: 'ahlak',
-            title: "Örnek Ahlakı ve Merhameti",
-            badge: "Ahlak",
-            desc: "'Sen elbette yüce bir ahlak üzeresin' (Kalem, 4) ayetinin tecellisi olan rahmet ve adalet anlayışı.",
-            content: "Efendimiz (SAV) hayatı boyunca asla yalan söylememiş, emanete hıyanet etmemişti (el-Emîn). En şiddetli düşmanlarına dahi affedici davranmış, Mekke'nin fethinde kendisine zulmedenlere 'Bugün kınama yok, sizler serbestsiniz' buyurmuştur. Çocuklara şefkatle yaklaşır, ev işlerinde eşlerine yardım ederdi."
+            titleTr: "Örnek Ahlakı ve Merhameti",
+            titleEn: "Noble Character and Mercy",
+            titleAr: "أخلاقه العالية ورحمته للعالمين",
+            badgeTr: "Ahlak", badgeEn: "Character", badgeAr: "الأخلاق",
+            descTr: "'Sen elbette yüce bir ahlak üzeresin' (Kalem, 4) ayetinin tecellisi olan rahmet ve adalet anlayışı.",
+            descEn: "The embodiment of the verse 'And indeed, you are of a great moral character'.",
+            descAr: "خلقه العظيم ورحمته الواسعة بالناس...",
+            contentTr: "Efendimiz (SAV) hayatı boyunca asla yalan söylememiş, emanete hıyanet etmemişti (el-Emîn). En şiddetli düşmanlarına dahi affedici davranmış, Mekke'nin fethinde kendisine zulmedenlere 'Bugün kınama yok, sizler serbestsiniz' buyurmuştur. Çocuklara şefkatle yaklaşır, ev işlerinde eşlerine yardım ederdi.",
+            contentEn: "Detailed English text about his character...",
+            contentAr: "النص التفصيلي باللغة العربية عن أخلاقه..."
         },
         {
             id: 10,
             category: 'veda',
-            title: "Veda Haccı ve Evrensel Veda Hutbesi",
-            badge: "Veda",
-            desc: "Hicretin 10. yılında yüz bin sahabiyle yaptığı son haccı ve insanlığa bıraktığı evrensel insan hakları beyannamesi.",
-            content: "Peygamber Efendimiz (SAV) hicretin 10. yılında hayatının tek haccı olan Veda Haccı'nı ifa etti. Arafat'ta 100 bini aşkın Müslümana irad ettiği Veda Hutbesi'nde; insan haklarını, kan davalarının kaldırıldığını, kadın haklarını, faiz yasaklarını ve ırk üstünlüğünün ancak takva ile olacağını ilan etti."
+            titleTr: "Veda Haccı ve Evrensel Veda Hutbesi",
+            titleEn: "Farewell Pilgrimage and Sermon",
+            titleAr: "حجة الوداع وخطبة الوداع التاريخية",
+            badgeTr: "Veda", badgeEn: "Farewell", badgeAr: "الوداع",
+            descTr: "Hicretin 10. yılında yüz bin sahabiyle yaptığı son haccı ve insanlığa bıraktığı evrensel insan hakları beyannamesi.",
+            descEn: "The final pilgrimage in the 10th year of Hijrah and the universal human rights declaration.",
+            descAr: "حجة الوداع في السنة العاشرة للهجرة وخطبته الجامعة...",
+            contentTr: "Peygamber Efendimiz (SAV) hicretin 10. yılında hayatının tek haccı olan Veda Haccı'nı ifa etti. Arafat'ta 100 bini aşkın Müslümana irad ettiği Veda Hutbesi'nde; insan haklarını, kan davalarının kaldırıldığını, kadın haklarını, faiz yasaklarını ve ırk üstünlüğünün ancak takva ile olacağını ilan etti.",
+            contentEn: "Detailed English text about Farewell sermon...",
+            contentAr: "النص التفصيلي باللغة العربية عن خطبة الوداع..."
         },
         {
             id: 11,
             category: 'veda',
-            title: "Rüfûk-i Âlâ'ya Yürüyüşü (Vefatı)",
-            badge: "Vefat",
-            desc: "Hicretin 11. yılı Rebiülevvel ayının 12. gününde Yüce Rabbimizin rahmetine kavuştu.",
-            content: "Veda Haccı'ndan kısa bir süre sonra rahatsızlanan Peygamber Efendimiz (SAV), sıtma ve ateşli hastalık geçirdi. Son günlerinde ashabına namaz kıldırma görevini Hz. Ebû Bekir'e bıraktı. 'Rüfûk-i Âlâ'ya (Yüce Dosta) kavuşmayı dileyerek miladi 8 Haziran 632 tarihinde Medine'de Mescid-i Nebevi'ye bitişik olan Hz. Ayşe'nin odasında vefat etti."
+            titleTr: "Rüfûk-i Âlâ'ya Yürüyüşü (Vefatı)",
+            titleEn: "Passing to the Highest Companion",
+            titleAr: "الوفاة والالتحاق بالرفيق الأعلى",
+            badgeTr: "Vefat", badgeEn: "Passing", badgeAr: "الوفاة",
+            descTr: "Hicretin 11. yılı Rebiülevvel ayının 12. gününde Yüce Rabbimizin rahmetine kavuştu.",
+            descEn: "Passing away in the 11th year of Hijrah in Medina.",
+            descAr: "انتقاله إلى الرفيق الأعلى في ربيع الأول من السنة الحادية عشرة...",
+            contentTr: "Veda Haccı'ndan kısa bir süre sonra rahatsızlanan Peygamber Efendimiz (SAV), sıtma ve ateşli hastalık geçirdi. Son günlerinde ashabına namaz kıldırma görevini Hz. Ebû Bekir'e bıraktı. 'Rüfûk-i Âlâ'ya (Yüce Dosta) kavuşmayı dileyerek miladi 8 Haziran 632 tarihinde Medine'de Mescid-i Nebevi'ye bitişik olan Hz. Ayşe'nin odasında vefat etti.",
+            contentEn: "Detailed English text about his passing...",
+            contentAr: "النص التفصيلي باللغة العربية عن وفاته..."
         }
     ];
 
@@ -514,15 +624,27 @@
     let currentFilter = 'all';
     let searchQuery = '';
 
+    // Listeyi Ekrana Basma (Çoklu Dil ve Arama Destekli)
     function renderList() {
         const listContainer = document.getElementById('contentList');
         listContainer.innerHTML = '';
 
         let filtered = siyerData.filter(item => {
             const matchesCategory = (currentFilter === 'all' || item.category === currentFilter);
-            const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                                  item.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                  item.content.toLowerCase().includes(searchQuery.toLowerCase());
+            
+            let title = item.titleTr;
+            let desc = item.descTr;
+            let content = item.contentTr;
+
+            if (activeLang === 'en') {
+                title = item.titleEn; desc = item.descEn; content = item.contentEn;
+            } else if (activeLang === 'ar') {
+                title = item.titleAr; desc = item.descAr; content = item.contentAr;
+            }
+
+            const matchesSearch = title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                  desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                  content.toLowerCase().includes(searchQuery.toLowerCase());
             return matchesCategory && matchesSearch;
         });
 
@@ -532,15 +654,25 @@
         }
 
         filtered.forEach(item => {
+            let title = item.titleTr;
+            let badge = item.badgeTr;
+            let desc = item.descTr;
+
+            if (activeLang === 'en') {
+                title = item.titleEn; badge = item.badgeEn; desc = item.descEn;
+            } else if (activeLang === 'ar') {
+                title = item.titleAr; badge = item.badgeAr; desc = item.descAr;
+            }
+
             const card = document.createElement('div');
             card.className = 'siyer-card';
             card.onclick = () => openDetail(item.id);
             card.innerHTML = `
                 <div class="siyer-card-title">
-                    ${item.title}
-                    <span class="badge">${item.badge}</span>
+                    ${title}
+                    <span class="badge">${badge}</span>
                 </div>
-                <div class="siyer-card-desc">${item.desc}</div>
+                <div class="siyer-card-desc">${desc}</div>
             `;
             listContainer.appendChild(card);
         });
@@ -562,9 +694,17 @@
         const item = siyerData.find(i => i.id === id);
         if (!item) return;
 
-        document.getElementById('modalTitleinnerText'] = item.title;
-        document.getElementById('modalTitle').innerText = item.title;
-        document.getElementById('modalBody').innerText = item.content;
+        let title = item.titleTr;
+        let content = item.contentTr;
+
+        if (activeLang === 'en') {
+            title = item.titleEn; content = item.contentEn;
+        } else if (activeLang === 'ar') {
+            title = item.titleAr; content = item.contentAr;
+        }
+
+        document.getElementById('modalTitle').innerText = title;
+        document.getElementById('modalBody').innerText = content;
         document.getElementById('detailModal').style.display = 'flex';
     }
 
@@ -577,6 +717,14 @@
     }
 
     window.onload = () => {
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (t[key]) {
+                if (el.tagName === 'TITLE') document.title = t[key];
+                else el.innerHTML = t[key];
+            }
+        });
+
         renderList();
     };
 </script>
